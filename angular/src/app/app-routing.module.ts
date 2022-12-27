@@ -1,36 +1,63 @@
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  NbAuthComponent,
+  NbLoginComponent,
+  NbLogoutComponent,
+  NbRegisterComponent,
+  NbRequestPasswordComponent,
+  NbResetPasswordComponent,
+} from '@nebular/auth';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module')
+      .then(m => m.PagesModule),
   },
   {
-    path: 'account',
-    loadChildren: () => import('@abp/ng.account').then(m => m.AccountModule.forLazy()),
+    path: 'auth',
+    component: NbAuthComponent,
+    children: [
+      {
+        path: '',
+        component: NbLoginComponent,
+      },
+      {
+        path: 'login',
+        component: NbLoginComponent,
+      },
+      {
+        path: 'register',
+        component: NbRegisterComponent,
+      },
+      {
+        path: 'logout',
+        component: NbLogoutComponent,
+      },
+      {
+        path: 'request-password',
+        component: NbRequestPasswordComponent,
+      },
+      {
+        path: 'reset-password',
+        component: NbResetPasswordComponent,
+      },
+    ],
   },
-  {
-    path: 'identity',
-    loadChildren: () => import('@abp/ng.identity').then(m => m.IdentityModule.forLazy()),
-  },
-  {
-    path: 'tenant-management',
-    loadChildren: () =>
-      import('@abp/ng.tenant-management').then(m => m.TenantManagementModule.forLazy()),
-  },
-  {
-    path: 'setting-management',
-    loadChildren: () =>
-      import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
-  },
+  { path: '', redirectTo: 'pages', pathMatch: 'full' },
+  { path: '**', redirectTo: 'pages' },
   { path: 'books', loadChildren: () => import('./book/book.module').then(m => m.BookModule) },
   { path: 'authors', loadChildren: () => import('./author/author.module').then(m => m.AuthorModule) },
 ];
 
+const config: ExtraOptions = {
+  useHash: false,
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

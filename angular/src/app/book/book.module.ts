@@ -6,11 +6,12 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap'; // add this li
 
 @NgModule({
   declarations: [BookComponent],
+  exports: [BookComponent],
   imports: [
     BookRoutingModule,
     SharedModule,
     NgbDatepickerModule, // add this line
-  ]
+  ],
 })
 export class BookModule { }
 

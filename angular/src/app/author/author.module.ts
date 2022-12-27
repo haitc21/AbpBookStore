@@ -6,6 +6,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AuthorComponent],
+  exports: [AuthorComponent],
   imports: [SharedModule, AuthorRoutingModule, NgbDatepickerModule],
 })
 export class AuthorModule {}

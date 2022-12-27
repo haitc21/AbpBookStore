@@ -1,5 +1,5 @@
 import { AccountConfigModule } from '@abp/ng.account/config';
-import { CoreModule } from '@abp/ng.core';
+import { CoreModule as AbpCoreModule } from '@abp/ng.core';
 import { registerLocale } from '@abp/ng.core/locale';
 import { IdentityConfigModule } from '@abp/ng.identity/config';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
@@ -15,12 +15,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
 
+import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './@core/core.module';
+import { ThemeModule } from './@theme/theme.module';
+import {
+  NbChatModule,
+  NbDatepickerModule,
+  NbDialogModule,
+  NbMenuModule,
+  NbSidebarModule,
+  NbToastrModule,
+  NbWindowModule,
+} from '@nebular/theme';
+
+
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CoreModule.forRoot({
+    AbpCoreModule.forRoot({
       environment,
       registerLocaleFn: registerLocale(),
     }),
@@ -31,6 +46,18 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
     SettingManagementConfigModule.forRoot(),
     ThemeLeptonXModule.forRoot(),
     SideMenuLayoutModule.forRoot(),
+
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot(),
+    NbDatepickerModule.forRoot(),
+    NbDialogModule.forRoot(),
+    NbWindowModule.forRoot(),
+    NbToastrModule.forRoot(),
+    NbChatModule.forRoot({
+      messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
+    }),
+    CoreModule.forRoot(),
+    ThemeModule.forRoot(),
   ],
   declarations: [AppComponent],
   providers: [APP_ROUTE_PROVIDER],
